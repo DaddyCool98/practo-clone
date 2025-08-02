@@ -2,7 +2,6 @@
   "name": "medicare-plus-platform",
   "version": "1.0.0",
   "description": "Modern healthcare platform - Find doctors, book appointments, manage health records",
-  "main": "index.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
