@@ -1,184 +1,344 @@
 'use client'
 
-import { Search, Calendar, Shield, Heart, Users, Clock, ArrowRight, Play, CheckCircle } from 'lucide-react'
+import { useState } from 'react'
+import { Search, Calendar, Shield, Heart, Users, Clock, ArrowRight, Play, CheckCircle, Star, Globe, Plane, Award } from 'lucide-react'
+
+const TABS = [
+  { key: 'doctors', label: 'Find Doctors', placeholder: 'Search doctors, specialties...', icon: '👨‍⚕️' },
+  { key: 'packages', label: 'Treatment Packages', placeholder: 'Search treatment packages...', icon: '📦' },
+  { key: 'hospitals', label: 'Hospitals', placeholder: 'Search hospitals...', icon: '🏥' },
+]
+
+const COUNTRIES = [
+  { code: 'IN', name: 'India', flag: '🇮🇳', savings: 'Save up to 80%' },
+  { code: 'TH', name: 'Thailand', flag: '🇹🇭', savings: 'Save up to 70%' },
+  { code: 'SG', name: 'Singapore', flag: '🇸🇬', savings: 'Save up to 60%' },
+  { code: 'MY', name: 'Malaysia', flag: '🇲🇾', savings: 'Save up to 75%' },
+  { code: 'TR', name: 'Turkey', flag: '🇹🇷', savings: 'Save up to 65%' },
+]
 
 export default function HomePage() {
-  const healthServices = [
-    { 
-      name: 'Instant Consultation', 
-      icon: '💬', 
-      description: 'Chat with doctors in minutes',
-      color: 'bg-blue-50 border-blue-200',
-      textColor: 'text-blue-700'
-    },
-    { 
-      name: 'Book Appointment', 
-      icon: '📅', 
-      description: 'Schedule with top specialists',
-      color: 'bg-green-50 border-green-200',
-      textColor: 'text-green-700'
-    },
-    { 
-      name: 'Health Checkup', 
-      icon: '🩺', 
-      description: 'Comprehensive health packages',
-      color: 'bg-purple-50 border-purple-200',
-      textColor: 'text-purple-700'
-    },
-    { 
-      name: 'Medicine Delivery', 
-      icon: '💊', 
-      description: 'Order medicines online',
-      color: 'bg-orange-50 border-orange-200',
-      textColor: 'text-orange-700'
-    }
+  const [activeTab, setActiveTab] = useState(TABS[0])
+  const [query, setQuery] = useState('')
+  const [country, setCountry] = useState('')
+
+  const onSearch = () => {
+    console.log('search', activeTab.key, query, country)
+    // Route to search results
+  }
+
+  const popularTreatments = [
+    { name: 'Heart Surgery', price: 'From $8,000', savings: '80% savings', flag: '🇮🇳' },
+    { name: 'Knee Replacement', price: 'From $5,500', savings: '75% savings', flag: '🇹🇭' },
+    { name: 'Cancer Treatment', price: 'From $12,000', savings: '70% savings', flag: '🇸🇬' },
+    { name: 'Fertility Treatment', price: 'From $3,500', savings: '65% savings', flag: '🇮🇳' },
+    { name: 'Cosmetic Surgery', price: 'From $2,800', savings: '70% savings', flag: '🇹🇷' },
+    { name: 'Dental Implants', price: 'From $800', savings: '85% savings', flag: '🇲🇾' }
   ]
 
-  const specialties = [
-    { name: 'General Medicine', icon: '🩺', available: 'Available now' },
-    { name: 'Pediatrics', icon: '👶', available: '5 min wait' },
-    { name: 'Dermatology', icon: '✨', available: 'Available now' },
-    { name: 'Cardiology', icon: '❤️', available: '10 min wait' },
-    { name: 'Orthopedics', icon: '🦴', available: 'Available now' },
-    { name: 'Gynecology', icon: '👩‍⚕️', available: '3 min wait' }
+  const featuredHospitals = [
+    {
+      name: 'Apollo Hospitals',
+      location: 'Chennai, India',
+      rating: 4.9,
+      accreditation: 'JCI Accredited',
+      specialties: ['Cardiology', 'Oncology', 'Orthopedics'],
+      image: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=300&h=200&fit=crop',
+      flag: '🇮🇳'
+    },
+    {
+      name: 'Bumrungrad Hospital',
+      location: 'Bangkok, Thailand',
+      rating: 4.8,
+      accreditation: 'JCI Accredited',
+      specialties: ['Cosmetic Surgery', 'Fertility', 'Cardiology'],
+      image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=300&h=200&fit=crop',
+      flag: '🇹🇭'
+    },
+    {
+      name: 'Mount Elizabeth Hospital',
+      location: 'Singapore',
+      rating: 4.9,
+      accreditation: 'JCI Accredited',
+      specialties: ['Cancer Treatment', 'Neurology', 'Pediatrics'],
+      image: 'https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=300&h=200&fit=crop',
+      flag: '🇸🇬'
+    }
   ]
 
   const testimonials = [
     {
-      name: 'Priya Sharma',
-      location: 'Mumbai',
-      text: 'Found the perfect doctor for my child. The booking process was so simple!',
+      name: 'Sarah Johnson',
+      location: 'USA',
+      treatment: 'Heart Surgery in India',
+      text: 'Saved $45,000 and received world-class treatment. The entire process was seamless!',
       rating: 5,
+      savings: '$45,000 saved',
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face'
     },
     {
-      name: 'Rajesh Kumar',
-      location: 'Delhi',
-      text: 'Video consultation saved me hours. Great experience with Dr. Patel.',
+      name: 'James Wilson',
+      location: 'UK',
+      treatment: 'Knee Replacement in Thailand',
+      text: 'Amazing facilities and caring staff. Recovery was faster than expected.',
       rating: 5,
+      savings: '$28,000 saved',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face'
     },
     {
-      name: 'Anita Singh',
-      location: 'Bangalore',
-      text: 'The health records feature is amazing. Everything in one place!',
+      name: 'Maria Garcia',
+      location: 'Spain',
+      treatment: 'Fertility Treatment in Singapore',
+      text: 'Professional care and successful treatment. Highly recommend!',
       rating: 5,
+      savings: '$15,000 saved',
       avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop&crop=face'
     }
   ]
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 via-white to-green-50 pt-16 pb-20">
+      {/* Hero Section with Enhanced Search */}
+      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <Heart className="h-4 w-4 mr-2" />
-                Trusted by 1M+ patients
+          {/* Trust Indicators */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <div className="bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full flex items-center text-sm font-medium">
+              <Heart className="h-4 w-4 mr-2" />
+              Trusted by <strong className="ml-1">50K+</strong> patients
+            </div>
+            <div className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full flex items-center text-sm font-medium">
+              <Globe className="h-4 w-4 mr-2" />
+              <strong>200+</strong> Partner hospitals
+            </div>
+            <div className="bg-purple-100 text-purple-800 px-4 py-2 rounded-full flex items-center text-sm font-medium">
+              <Award className="h-4 w-4 mr-2" />
+              <strong>95%</strong> Success rate
+            </div>
+          </div>
+
+          {/* Main Headline */}
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              World-Class Healthcare
+              <span className="block text-yellow-300">At Affordable Prices</span>
+            </h1>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-8 leading-relaxed">
+              Connect with top doctors and hospitals globally. Save up to 80% on medical treatments with our trusted international healthcare network.
+            </p>
+            
+            {/* Key Benefits */}
+            <div className="flex flex-wrap justify-center gap-4 mb-12">
+              <div className="bg-blue-500/30 backdrop-blur px-6 py-3 rounded-xl flex items-center gap-3">
+                <CheckCircle className="h-5 w-5 text-green-300" />
+                <span className="font-medium">JCI Accredited Hospitals</span>
               </div>
-              
-              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Your Health,
-                <span className="text-blue-600"> Simplified</span>
-              </h1>
-              
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Connect with verified doctors, book appointments instantly, and manage your health journey with ease. Healthcare made simple and accessible.
-              </p>
-              
-              {/* Quick Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
-                  <Calendar className="h-5 w-5 mr-2 inline" />
-                  Book Appointment
-                </button>
-                <button className="bg-white hover:bg-gray-50 text-gray-800 px-8 py-4 rounded-xl font-semibold text-lg border-2 border-gray-200 transition-all">
-                  <Play className="h-5 w-5 mr-2 inline" />
-                  Watch Demo
-                </button>
+              <div className="bg-blue-500/30 backdrop-blur px-6 py-3 rounded-xl flex items-center gap-3">
+                <CheckCircle className="h-5 w-5 text-green-300" />
+                <span className="font-medium">Board Certified Doctors</span>
               </div>
-              
-              {/* Trust Indicators */}
-              <div className="flex items-center space-x-8 text-sm text-gray-600">
-                <div className="flex items-center">
-                  <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                  <span>Verified Doctors</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                  <span>Secure & Private</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                  <span>24/7 Support</span>
-                </div>
+              <div className="bg-blue-500/30 backdrop-blur px-6 py-3 rounded-xl flex items-center gap-3">
+                <CheckCircle className="h-5 w-5 text-green-300" />
+                <span className="font-medium">Complete Travel Support</span>
               </div>
             </div>
-            
-            <div className="relative">
-              <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Find Your Doctor</h3>
-                
-                <div className="space-y-4">
-                  <div className="relative">
-                    <Search className="absolute left-4 top-4 h-5 w-5 text-gray-400" />
-                    <input
-                      type="text"
-                      placeholder="Search doctors, symptoms, or conditions..."
-                      className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
-                    />
-                  </div>
-                  
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Your location"
-                      className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
-                    />
-                  </div>
-                  
-                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold text-lg transition-colors">
-                    Search Doctors
+          </div>
+
+          {/* Enhanced Search Card */}
+          <div className="bg-white rounded-2xl shadow-2xl p-8 text-gray-800 max-w-5xl mx-auto">
+            {/* Search Tabs */}
+            <div className="flex flex-wrap gap-3 mb-6">
+              {TABS.map(tab => (
+                <button
+                  key={tab.key}
+                  onClick={() => {
+                    setActiveTab(tab)
+                    setQuery('')
+                  }}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center gap-2 ${
+                    activeTab.key === tab.key
+                      ? 'bg-blue-600 text-white shadow-lg transform scale-105'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-105'
+                  }`}
+                >
+                  <span className="text-lg">{tab.icon}</span>
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Search Inputs */}
+            <div className="grid md:grid-cols-12 gap-4 mb-6">
+              <div className="md:col-span-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  What are you looking for?
+                </label>
+                <div className="relative">
+                  <Search className="absolute left-4 top-4 h-5 w-5 text-gray-400" />
+                  <input
+                    placeholder={activeTab.placeholder}
+                    value={query}
+                    onChange={e => setQuery(e.target.value)}
+                    className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                  />
+                </div>
+              </div>
+              
+              <div className="md:col-span-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Preferred Country
+                </label>
+                <select
+                  value={country}
+                  onChange={e => setCountry(e.target.value)}
+                  className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg bg-white"
+                >
+                  <option value="">Select Country</option>
+                  {COUNTRIES.map(c => (
+                    <option key={c.code} value={c.code}>
+                      {c.flag} {c.name} - {c.savings}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  &nbsp;
+                </label>
+                <button
+                  onClick={onSearch}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-xl font-semibold text-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+
+            {/* Popular Searches */}
+            <div className="text-center">
+              <p className="text-sm text-gray-600 mb-3">Popular treatments:</p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {['Heart Surgery', 'Knee Replacement', 'Cancer Treatment', 'Fertility', 'Cosmetic Surgery', 'Dental Implants'].map(treatment => (
+                  <button
+                    key={treatment}
+                    onClick={() => setQuery(treatment)}
+                    className="px-4 py-2 bg-gray-100 hover:bg-blue-50 text-gray-700 hover:text-blue-600 rounded-full text-sm transition-colors"
+                  >
+                    {treatment}
                   </button>
-                </div>
-                
-                <div className="mt-6 pt-6 border-t border-gray-100">
-                  <p className="text-sm text-gray-600 mb-3">Popular searches:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {['Fever', 'Skin problems', 'Pregnancy', 'Mental health'].map(tag => (
-                      <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200 cursor-pointer">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Health Services */}
+      {/* Popular Treatment Packages */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Popular Treatment Packages</h2>
+            <p className="text-xl text-gray-600">Save significantly on world-class medical treatments</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {popularTreatments.map((treatment, index) => (
+              <div key={index} className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{treatment.name}</h3>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-2xl">{treatment.flag}</span>
+                      <span className="text-sm text-gray-600">Multiple locations available</span>
+                    </div>
+                  </div>
+                  <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                    {treatment.savings}
+                  </div>
+                </div>
+                
+                <div className="mb-6">
+                  <div className="text-3xl font-bold text-blue-600 mb-1">{treatment.price}</div>
+                  <div className="text-sm text-gray-500">All-inclusive package</div>
+                </div>
+                
+                <div className="space-y-2 mb-6">
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    JCI Accredited hospitals
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    Board certified surgeons
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                    Travel & accommodation
+                  </div>
+                </div>
+                
+                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition-colors">
+                  Get Quote
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Hospitals */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Complete Healthcare Solutions</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From instant consultations to medicine delivery, we've got all your health needs covered
-            </p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured Partner Hospitals</h2>
+            <p className="text-xl text-gray-600">World-renowned healthcare institutions</p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {healthServices.map((service, index) => (
-              <div key={index} className={`${service.color} border-2 rounded-2xl p-8 hover:shadow-lg transition-all cursor-pointer group`}>
-                <div className="text-5xl mb-4">{service.icon}</div>
-                <h3 className={`text-xl font-bold ${service.textColor} mb-2`}>{service.name}</h3>
-                <p className="text-gray-600 mb-4">{service.description}</p>
-                <div className={`flex items-center ${service.textColor} font-medium group-hover:translate-x-1 transition-transform`}>
-                  <span>Get started</span>
-                  <ArrowRight className="h-4 w-4 ml-2" />
+          <div className="grid md:grid-cols-3 gap-8">
+            {featuredHospitals.map((hospital, index) => (
+              <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                <div className="relative">
+                  <img
+                    src={hospital.image}
+                    alt={hospital.name}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="absolute top-4 right-4 bg-white rounded-full p-2">
+                    <span className="text-2xl">{hospital.flag}</span>
+                  </div>
+                </div>
+                
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">{hospital.name}</h3>
+                      <p className="text-gray-600">{hospital.location}</p>
+                    </div>
+                    <div className="flex items-center bg-yellow-50 px-2 py-1 rounded-lg">
+                      <Star className="h-4 w-4 text-yellow-400 mr-1" />
+                      <span className="font-medium text-yellow-800">{hospital.rating}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-green-50 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
+                    {hospital.accreditation}
+                  </div>
+                  
+                  <div className="mb-4">
+                    <p className="text-sm text-gray-600 mb-2">Specialties:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {hospital.specialties.map((specialty, i) => (
+                        <span key={i} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">
+                          {specialty}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition-colors">
+                    View Hospital
+                  </button>
                 </div>
               </div>
             ))}
@@ -186,171 +346,92 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Instant Consultation */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-bold text-white mb-6">
-                Talk to a Doctor in Minutes
-              </h2>
-              <p className="text-xl text-blue-100 mb-8">
-                Get instant medical advice from qualified doctors. Available 24/7 for urgent consultations.
-              </p>
-              
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                {specialties.map((specialty, index) => (
-                  <div key={index} className="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-2xl">{specialty.icon}</span>
-                      <div>
-                        <h4 className="text-white font-medium">{specialty.name}</h4>
-                        <p className="text-blue-200 text-sm">{specialty.available}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              <button className="bg-white text-blue-600 hover:bg-gray-50 px-8 py-4 rounded-xl font-semibold text-lg transition-colors">
-                Start Consultation Now
-              </button>
-            </div>
-            
-            <div className="relative">
-              <div className="bg-white rounded-2xl shadow-2xl p-8">
-                <div className="flex items-center space-x-4 mb-6">
-                  <img
-                    src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=60&h=60&fit=crop&crop=face"
-                    alt="Doctor"
-                    className="w-16 h-16 rounded-full"
-                  />
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Dr. Sarah Johnson</h4>
-                    <p className="text-gray-600">General Medicine</p>
-                    <div className="flex items-center mt-1">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                      <span className="text-sm text-green-600">Available now</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="space-y-3">
-                  <div className="bg-gray-50 rounded-lg p-3">
-                    <p className="text-gray-700">Hi! How can I help you today?</p>
-                  </div>
-                  <div className="bg-blue-50 rounded-lg p-3 ml-8">
-                    <p className="text-gray-700">I have been having headaches...</p>
-                  </div>
-                </div>
-                
-                <div className="mt-6 flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Clock className="h-4 w-4 text-gray-400" />
-                    <span className="text-sm text-gray-600">Response time: 2 min</span>
-                  </div>
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">
-                    Send Message
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="py-20 bg-gray-50">
+      {/* Patient Success Stories */}
+      <section className="py-20 bg-gradient-to-r from-blue-50 to-indigo-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Patients Trust Us</h2>
-            <p className="text-xl text-gray-600">Healthcare that puts you first</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <div className="text-center">
-              <div className="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Shield className="h-10 w-10 text-blue-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">100% Secure</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Your health data is encrypted and protected with bank-level security. HIPAA compliant platform.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Users className="h-10 w-10 text-green-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Verified Doctors</h3>
-              <p className="text-gray-600 leading-relaxed">
-                All doctors are verified with proper credentials and licenses. Only the best healthcare professionals.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Clock className="h-10 w-10 text-purple-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">24/7 Available</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Round-the-clock medical support. Emergency consultations available anytime, anywhere.
-              </p>
-            </div>
-          </div>
-          
-          {/* Stats */}
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold text-blue-600 mb-2">1M+</div>
-              <div className="text-gray-600">Happy Patients</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-green-600 mb-2">5000+</div>
-              <div className="text-gray-600">Verified Doctors</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-purple-600 mb-2">50+</div>
-              <div className="text-gray-600">Specialties</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-orange-600 mb-2">24/7</div>
-              <div className="text-gray-600">Support</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Patient Testimonials */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">What Our Patients Say</h2>
-            <p className="text-xl text-gray-600">Real stories from real people</p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Patient Success Stories</h2>
+            <p className="text-xl text-gray-600">Real experiences from our global patients</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+              <div key={index} className="bg-white rounded-2xl shadow-lg p-8">
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <div key={i} className="w-5 h-5 text-yellow-400">⭐</div>
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
                 
                 <p className="text-gray-700 mb-6 leading-relaxed">"{testimonial.text}"</p>
                 
-                <div className="flex items-center">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full mr-4"
-                  />
-                  <div>
-                    <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                    <p className="text-gray-600 text-sm">{testimonial.location}</p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <img
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full mr-4"
+                    />
+                    <div>
+                      <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                      <p className="text-gray-600 text-sm">{testimonial.location}</p>
+                      <p className="text-blue-600 text-sm font-medium">{testimonial.treatment}</p>
+                    </div>
+                  </div>
+                  <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                    {testimonial.savings}
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">How Medical Tourism Works</h2>
+            <p className="text-xl text-gray-600">Your journey to affordable healthcare in 4 simple steps</p>
+          </div>
+          
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              {
+                step: '1',
+                title: 'Consultation',
+                description: 'Share your medical needs and get personalized treatment recommendations',
+                icon: '💬'
+              },
+              {
+                step: '2',
+                title: 'Planning',
+                description: 'We arrange everything - hospital, doctor, travel, and accommodation',
+                icon: '📋'
+              },
+              {
+                step: '3',
+                title: 'Treatment',
+                description: 'Receive world-class treatment at our partner hospitals',
+                icon: '🏥'
+              },
+              {
+                step: '4',
+                title: 'Recovery',
+                description: 'Follow-up care and support throughout your recovery journey',
+                icon: '❤️'
+              }
+            ].map((item, index) => (
+              <div key={index} className="text-center">
+                <div className="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <span className="text-3xl">{item.icon}</span>
+                </div>
+                <div className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="font-bold">{item.step}</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
               </div>
             ))}
           </div>
@@ -358,26 +439,28 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-green-600 to-blue-600">
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Take Control of Your Health?
+            Ready to Start Your Healthcare Journey?
           </h2>
-          <p className="text-xl text-green-100 mb-8">
-            Join millions of patients who trust us for their healthcare needs
+          <p className="text-xl text-blue-100 mb-8">
+            Get a free consultation and personalized treatment plan today
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-600 hover:bg-gray-50 font-semibold py-4 px-8 rounded-xl text-lg transition-colors">
-              Find a Doctor
+            <button className="bg-white text-blue-600 hover:bg-gray-50 font-semibold py-4 px-8 rounded-xl text-lg transition-colors flex items-center justify-center">
+              <Calendar className="h-5 w-5 mr-2" />
+              Free Consultation
             </button>
-            <button className="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-4 px-8 rounded-xl text-lg transition-colors border-2 border-blue-500">
-              Download App
+            <button className="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-4 px-8 rounded-xl text-lg transition-colors border-2 border-blue-500 flex items-center justify-center">
+              <Plane className="h-5 w-5 mr-2" />
+              Plan My Treatment
             </button>
           </div>
           
           <p className="text-blue-100 text-sm mt-6">
-            Available on iOS and Android • Free to download
+            💬 24/7 support • 🌍 Global network • 💰 Best price guarantee
           </p>
         </div>
       </section>
